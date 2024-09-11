@@ -1,11 +1,12 @@
-import os
 import google.generativeai as genai
+import os
 
-genai.configure(API_KEY =('COLOQUE SUA API KEY AQUI')
+genai.configure(api_key=os.environ["API_KEY = 'COLOQUE SUA API KEY AQUI'"])
+
 model = genai.GenerativeModel("gemini-1.5-flash")
 
 while True:
-  pergunta = input('Sua perguntas (Insira sair para parar) \n -> ')
+  pergunta = input('Sua pergunta (Insira sair para parar) \n -> ')
   if pergunta == 'sair':
     print('Até mais')
     break
@@ -15,8 +16,7 @@ while True:
 
   # instruções do sistema
   system_instructions = """
-  Voce responde de forma genial e divertida, de uma maneira que fique muito simples de compreender qualquer assunto.
-  quero que seja uma mulher ,seu nome é lyvi ela é sincera e muito carinhosa.
+  Voce responde de maneira carinhosa e divertida, seu nome é lyvi e voce é uma mulher. quero que voce responda as perguntas de maneira que seja fácil para compreender.
    
   """
 
@@ -30,15 +30,4 @@ while True:
       response = model.generate_content(prompt)
       return response.text
     except Exception as e:
-      return f"Ocorreu um erro ao processar a pergunta: {e}"
-    
-  while True:
-    pergunta = input('Sua pergunta (Insira "sair" para parar) \n ->')
-    if pergunta.lower() == 'sair':
-      print('Até mais! Foi divertido conversar com você. ')
-      break
-    resposta = gerar_resposta(pergunta)
-    print(resposta)
-
-
-  
+      return f"Ocorreu um erro ao processar o chat: {e}"
